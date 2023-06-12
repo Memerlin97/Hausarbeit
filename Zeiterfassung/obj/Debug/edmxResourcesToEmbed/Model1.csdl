@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_WorkTimeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="WorkTimeContext" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetTimes">
+      <Parameter Name="PersonID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DelTMP" />
+    <EntitySet Name="Abteilung" EntityType="DB_WorkTimeModel.Abteilung" />
+    <EntitySet Name="Mitarbeiter" EntityType="DB_WorkTimeModel.Mitarbeiter" />
+    <EntitySet Name="Praeferenzen" EntityType="DB_WorkTimeModel.Praeferenzen" />
+    <EntitySet Name="Rechte" EntityType="DB_WorkTimeModel.Rechte" />
+    <EntitySet Name="Rollen" EntityType="DB_WorkTimeModel.Rollen" />
+    <EntitySet Name="tmp" EntityType="DB_WorkTimeModel.tmp" />
+    <EntitySet Name="Zeiten" EntityType="DB_WorkTimeModel.Zeiten" />
+    <AssociationSet Name="fk_Abteilung" Association="DB_WorkTimeModel.fk_Abteilung">
+      <End Role="Abteilung" EntitySet="Abteilung" />
+      <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Pref" Association="DB_WorkTimeModel.fk_Pref">
+      <End Role="Praeferenzen" EntitySet="Praeferenzen" />
+      <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Rolle" Association="DB_WorkTimeModel.fk_Rolle">
+      <End Role="Rollen" EntitySet="Rollen" />
+      <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Leserecht" Association="DB_WorkTimeModel.fk_Leserecht">
+      <End Role="Rechte" EntitySet="Rechte" />
+      <End Role="Rollen" EntitySet="Rollen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Schreibrecht" Association="DB_WorkTimeModel.fk_Schreibrecht">
+      <End Role="Rechte" EntitySet="Rechte" />
+      <End Role="Rollen" EntitySet="Rollen" />
+    </AssociationSet>
+    <AssociationSet Name="Mitarbeiter_Zeiten" Association="DB_WorkTimeModel.Mitarbeiter_Zeiten">
+      <End Role="Mitarbeiter" EntitySet="Mitarbeiter" />
+      <End Role="Zeiten" EntitySet="Zeiten" />
+    </AssociationSet>
+    <FunctionImport Name="GetUrlaub" ReturnType="Collection(Int32)">
+      <Parameter Name="PersonID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Abteilung">
+    <Key>
+      <PropertyRef Name="id_Abteilung" />
+    </Key>
+    <Property Name="id_Abteilung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mitarbeiter" Relationship="DB_WorkTimeModel.fk_Abteilung" FromRole="Abteilung" ToRole="Mitarbeiter" />
+  </EntityType>
+  <EntityType Name="Mitarbeiter">
+    <Key>
+      <PropertyRef Name="id_Mitarbeiter" />
+    </Key>
+    <Property Name="id_Mitarbeiter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Resturlaub" Type="Int32" />
+    <Property Name="Regelarbeitszeit" Type="Double" />
+    <Property Name="id_Abteilung" Type="Int32" />
+    <Property Name="id_Praeferenz" Type="Int32" />
+    <Property Name="id_Rolle" Type="Int32" />
+    <NavigationProperty Name="Abteilung" Relationship="DB_WorkTimeModel.fk_Abteilung" FromRole="Mitarbeiter" ToRole="Abteilung" />
+    <NavigationProperty Name="Praeferenzen" Relationship="DB_WorkTimeModel.fk_Pref" FromRole="Mitarbeiter" ToRole="Praeferenzen" />
+    <NavigationProperty Name="Rollen" Relationship="DB_WorkTimeModel.fk_Rolle" FromRole="Mitarbeiter" ToRole="Rollen" />
+    <NavigationProperty Name="Zeiten" Relationship="DB_WorkTimeModel.Mitarbeiter_Zeiten" FromRole="Mitarbeiter" ToRole="Zeiten" />
+  </EntityType>
+  <EntityType Name="Praeferenzen">
+    <Key>
+      <PropertyRef Name="id_Praeferenz" />
+    </Key>
+    <Property Name="id_Praeferenz" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Jahresurlaub" Type="Int32" />
+    <Property Name="PauseMin" Type="Int32" />
+    <Property Name="PauseMax" Type="Int32" />
+    <NavigationProperty Name="Mitarbeiter" Relationship="DB_WorkTimeModel.fk_Pref" FromRole="Praeferenzen" ToRole="Mitarbeiter" />
+  </EntityType>
+  <EntityType Name="Rechte">
+    <Key>
+      <PropertyRef Name="id_Recht" />
+    </Key>
+    <Property Name="id_Recht" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bezeichnung" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rollen" Relationship="DB_WorkTimeModel.fk_Leserecht" FromRole="Rechte" ToRole="Rollen" />
+    <NavigationProperty Name="Rollen1" Relationship="DB_WorkTimeModel.fk_Schreibrecht" FromRole="Rechte" ToRole="Rollen" />
+  </EntityType>
+  <EntityType Name="Rollen">
+    <Key>
+      <PropertyRef Name="id_Rollen" />
+    </Key>
+    <Property Name="id_Rollen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kurz_Beschreibung" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Beschreibung" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Leserecht" Type="Int32" />
+    <Property Name="Schreibrecht" Type="Int32" />
+    <NavigationProperty Name="Mitarbeiter" Relationship="DB_WorkTimeModel.fk_Rolle" FromRole="Rollen" ToRole="Mitarbeiter" />
+    <NavigationProperty Name="Rechte" Relationship="DB_WorkTimeModel.fk_Leserecht" FromRole="Rollen" ToRole="Rechte" />
+    <NavigationProperty Name="Rechte1" Relationship="DB_WorkTimeModel.fk_Schreibrecht" FromRole="Rollen" ToRole="Rechte" />
+  </EntityType>
+  <EntityType Name="tmp">
+    <Key>
+      <PropertyRef Name="id_Zeiten" />
+    </Key>
+    <Property Name="id_Zeiten" Type="Int32" Nullable="false" />
+    <Property Name="Datum" Type="DateTime" Precision="0" />
+    <Property Name="BeginnAZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EndeAZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Urlaub" Type="Boolean" />
+    <Property Name="sonstAbw" Type="Boolean" />
+    <Property Name="AbwGrund" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NettoAZ" Type="Double" />
+    <Property Name="Pause" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Zeiten">
+    <Key>
+      <PropertyRef Name="id_Zeiten" />
+    </Key>
+    <Property Name="id_Zeiten" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Datum" Type="DateTime" Precision="0" />
+    <Property Name="BeginnAZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EndeAZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Urlaub" Type="Boolean" />
+    <Property Name="sonstAbw" Type="Boolean" />
+    <Property Name="AbwGrund" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mitarbeiter" Relationship="DB_WorkTimeModel.Mitarbeiter_Zeiten" FromRole="Zeiten" ToRole="Mitarbeiter" />
+    <Property Name="NettoAZ" Type="Double" />
+    <Property Name="Pause" Type="Int32" />
+  </EntityType>
+  <Association Name="fk_Abteilung">
+    <End Type="DB_WorkTimeModel.Abteilung" Role="Abteilung" Multiplicity="0..1" />
+    <End Type="DB_WorkTimeModel.Mitarbeiter" Role="Mitarbeiter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Abteilung">
+        <PropertyRef Name="id_Abteilung" />
+      </Principal>
+      <Dependent Role="Mitarbeiter">
+        <PropertyRef Name="id_Abteilung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Pref">
+    <End Type="DB_WorkTimeModel.Praeferenzen" Role="Praeferenzen" Multiplicity="0..1" />
+    <End Type="DB_WorkTimeModel.Mitarbeiter" Role="Mitarbeiter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Praeferenzen">
+        <PropertyRef Name="id_Praeferenz" />
+      </Principal>
+      <Dependent Role="Mitarbeiter">
+        <PropertyRef Name="id_Praeferenz" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Rolle">
+    <End Type="DB_WorkTimeModel.Rollen" Role="Rollen" Multiplicity="0..1" />
+    <End Type="DB_WorkTimeModel.Mitarbeiter" Role="Mitarbeiter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rollen">
+        <PropertyRef Name="id_Rollen" />
+      </Principal>
+      <Dependent Role="Mitarbeiter">
+        <PropertyRef Name="id_Rolle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Leserecht">
+    <End Type="DB_WorkTimeModel.Rechte" Role="Rechte" Multiplicity="0..1" />
+    <End Type="DB_WorkTimeModel.Rollen" Role="Rollen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rechte">
+        <PropertyRef Name="id_Recht" />
+      </Principal>
+      <Dependent Role="Rollen">
+        <PropertyRef Name="Leserecht" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Schreibrecht">
+    <End Type="DB_WorkTimeModel.Rechte" Role="Rechte" Multiplicity="0..1" />
+    <End Type="DB_WorkTimeModel.Rollen" Role="Rollen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rechte">
+        <PropertyRef Name="id_Recht" />
+      </Principal>
+      <Dependent Role="Rollen">
+        <PropertyRef Name="Schreibrecht" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Mitarbeiter_Zeiten">
+    <End Type="DB_WorkTimeModel.Mitarbeiter" Role="Mitarbeiter" Multiplicity="*" />
+    <End Type="DB_WorkTimeModel.Zeiten" Role="Zeiten" Multiplicity="*" />
+  </Association>
+</Schema>

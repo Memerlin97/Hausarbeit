@@ -1,0 +1,44 @@
+﻿<Window x:Class="Zeiterfassung.WorkTime"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zeiterfassung"
+        mc:Ignorable="d"
+        Title="Arbeitszeit eintragen" Height="175" Width="300"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+
+        </Grid.RowDefinitions>
+        
+        
+        <Label Grid.Row="0" Grid.Column="0" Content="Datum"/>
+        <DatePicker Name="Date" Grid.Row="1" Grid.Column="0" Margin="3,0,3,0" Grid.ColumnSpan="2" Text="{Binding Datum , Mode=OneWayToSource}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="von Uhrzeit"/>
+        <Label Grid.Row="2" Grid.Column="1" Content="bis Uhrzeit"/>
+        <TextBox x:Name="Start" Grid.Row="3" Grid.Column="0" Margin="3,0,3,0" MaxLength="4" TextChanged="Start_TextChanged"
+                 Text="{Binding BeginnAz , Mode=OneWayToSource}"/>
+        <TextBox x:Name="End" Grid.Row="3" Grid.Column="1" Margin="3,0,3,0" MaxLength="4" TextChanged="End_TextChanged"
+                 Text="{Binding EndeAZ, Mode=OneWayToSource}"/>
+
+        <StackPanel Grid.Row="4" Margin="0,3,5,3" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
+            <Button x:Name="cancel" Content="Abbrechen" Margin="0,0,5,0" Click="cancel_Click"/>
+            <Button x:Name="save" Content="Speichern" Click="save_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Visibility="Hidden">
+            <Label Content="Mitarbeiter"/>
+            <TextBox x:Name="MA_id" MaxLength="1" Width="50" Margin="2" />
+        </StackPanel>
+    </Grid>
+</Window>

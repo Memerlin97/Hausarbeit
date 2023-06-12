@@ -1,0 +1,43 @@
+﻿<Window x:Class="Zeiterfassung.DataView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zeiterfassung"
+        mc:Ignorable="d"
+        Title="Daten Anzeige" Height="450" Width="650"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition/>
+            <RowDefinition Height=".1*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Restliche Urlaubstage:"/>
+        <Label Grid.Column="1" HorizontalAlignment="Left" x:Name="Resturlaub"/>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.ColumnSpan="2" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" 
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn Header="von Uhrzeit" Binding="{Binding BeginnAZ}"/>
+                <DataGridTextColumn Header="bis Uhrzeit" Binding="{Binding EndeAZ}"/>
+                <DataGridTextColumn Header="Davon Pause" Binding="{Binding Pause}"/>
+                <DataGridTextColumn Header="ist Urlaub" Binding="{Binding Urlaub}"/>
+                <DataGridTextColumn Header="ist Abwesenheit" Binding="{Binding sonstAbw}"/>                
+                <DataGridTextColumn Header="netto Arbeitszeit" Binding="{Binding NettoAZ}"/>
+            </DataGrid.Columns>            
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Visibility="Hidden">
+            <Label Content="Mitarbeiter"/>
+            <TextBox x:Name="MA_id" MaxLength="1" Width="50" Margin="2" />
+        </StackPanel>
+
+        <Button x:Name="cancel" Content="Schließen" Grid.Row="2" Grid.Column="1" Margin="2.5" HorizontalAlignment="Right" Click="cancel_Click"/>    </Grid>
+</Window>

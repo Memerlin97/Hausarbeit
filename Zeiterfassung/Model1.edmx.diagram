@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="86bcc8dec5594c35b8027a0422b33fef" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Abteilung" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Mitarbeiter" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Praeferenzen" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Rechte" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Rollen" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.tmp" Width="1.5" PointX="7.5" PointY="5" />
+        <EntityTypeShape EntityType="DB_WorkTimeModel.Zeiten" Width="1.5" PointX="7.5" PointY="1.375" />
+        <AssociationConnector Association="DB_WorkTimeModel.fk_Abteilung" />
+        <AssociationConnector Association="DB_WorkTimeModel.fk_Pref" />
+        <AssociationConnector Association="DB_WorkTimeModel.fk_Rolle" />
+        <AssociationConnector Association="DB_WorkTimeModel.fk_Leserecht" />
+        <AssociationConnector Association="DB_WorkTimeModel.fk_Schreibrecht" />
+        <AssociationConnector Association="DB_WorkTimeModel.Mitarbeiter_Zeiten" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

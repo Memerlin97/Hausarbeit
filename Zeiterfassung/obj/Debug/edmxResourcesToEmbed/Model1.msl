@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_WorkTimeModelStoreContainer" CdmEntityContainer="WorkTimeContext">
+    <FunctionImportMapping FunctionImportName="GetTimes" FunctionName="DB_WorkTimeModel.Store.GetTimes" />
+    <FunctionImportMapping FunctionImportName="DelTMP" FunctionName="DB_WorkTimeModel.Store.DelTMP" />
+    <EntitySetMapping Name="Abteilung">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Abteilung">
+        <MappingFragment StoreEntitySet="Abteilung">
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+          <ScalarProperty Name="id_Abteilung" ColumnName="id_Abteilung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mitarbeiter">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Mitarbeiter">
+        <MappingFragment StoreEntitySet="Mitarbeiter">
+          <ScalarProperty Name="id_Rolle" ColumnName="id_Rolle" />
+          <ScalarProperty Name="id_Praeferenz" ColumnName="id_Praeferenz" />
+          <ScalarProperty Name="id_Abteilung" ColumnName="id_Abteilung" />
+          <ScalarProperty Name="Regelarbeitszeit" ColumnName="Regelarbeitszeit" />
+          <ScalarProperty Name="Resturlaub" ColumnName="Resturlaub" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="id_Mitarbeiter" ColumnName="id_Mitarbeiter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Praeferenzen">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Praeferenzen">
+        <MappingFragment StoreEntitySet="Praeferenzen">
+          <ScalarProperty Name="PauseMax" ColumnName="PauseMax" />
+          <ScalarProperty Name="PauseMin" ColumnName="PauseMin" />
+          <ScalarProperty Name="Jahresurlaub" ColumnName="Jahresurlaub" />
+          <ScalarProperty Name="id_Praeferenz" ColumnName="id_Praeferenz" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rechte">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Rechte">
+        <MappingFragment StoreEntitySet="Rechte">
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+          <ScalarProperty Name="id_Recht" ColumnName="id_Recht" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rollen">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Rollen">
+        <MappingFragment StoreEntitySet="Rollen">
+          <ScalarProperty Name="Schreibrecht" ColumnName="Schreibrecht" />
+          <ScalarProperty Name="Leserecht" ColumnName="Leserecht" />
+          <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+          <ScalarProperty Name="kurz_Beschreibung" ColumnName="kurz_Beschreibung" />
+          <ScalarProperty Name="id_Rollen" ColumnName="id_Rollen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tmp">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.tmp">
+        <MappingFragment StoreEntitySet="tmp">
+          <ScalarProperty Name="Pause" ColumnName="Pause" />
+          <ScalarProperty Name="NettoAZ" ColumnName="NettoAZ" />
+          <ScalarProperty Name="AbwGrund" ColumnName="AbwGrund" />
+          <ScalarProperty Name="sonstAbw" ColumnName="sonstAbw" />
+          <ScalarProperty Name="Urlaub" ColumnName="Urlaub" />
+          <ScalarProperty Name="EndeAZ" ColumnName="EndeAZ" />
+          <ScalarProperty Name="BeginnAZ" ColumnName="BeginnAZ" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="id_Zeiten" ColumnName="id_Zeiten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zeiten">
+      <EntityTypeMapping TypeName="DB_WorkTimeModel.Zeiten">
+        <MappingFragment StoreEntitySet="Zeiten">
+          <ScalarProperty Name="Pause" ColumnName="Pause" />
+          <ScalarProperty Name="NettoAZ" ColumnName="NettoAZ" />
+          <ScalarProperty Name="AbwGrund" ColumnName="AbwGrund" />
+          <ScalarProperty Name="sonstAbw" ColumnName="sonstAbw" />
+          <ScalarProperty Name="Urlaub" ColumnName="Urlaub" />
+          <ScalarProperty Name="EndeAZ" ColumnName="EndeAZ" />
+          <ScalarProperty Name="BeginnAZ" ColumnName="BeginnAZ" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="id_Zeiten" ColumnName="id_Zeiten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Mitarbeiter_Zeiten" TypeName="DB_WorkTimeModel.Mitarbeiter_Zeiten" StoreEntitySet="Mitarbeiter_Zeiten">
+      <EndProperty Name="Zeiten">
+        <ScalarProperty Name="id_Zeiten" ColumnName="id_Zeiten" />
+      </EndProperty>
+      <EndProperty Name="Mitarbeiter">
+        <ScalarProperty Name="id_Mitarbeiter" ColumnName="id_Mitarbeiter" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="GetUrlaub" FunctionName="DB_WorkTimeModel.Store.GetUrlaub" />
+  </EntityContainerMapping>
+</Mapping>
